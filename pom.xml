@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>socket_projects</name>
+    <description>socket_projects</description>
+
+    <groupId>com.app</groupId>
+    <artifactId>socket_projects</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <!-- Mina实现tcp客户端 -->
+        <module>MinaTcpClientDemo</module>
+        <!-- Mina实现tcp服务端 -->
+        <module>MinaTcpServerDemo</module>
+        <!-- Mina实现udp服务端 -->
+        <module>MinaUDPServerDemo</module>
+        <!-- Netty实现tcp客户端 -->
+        <module>NettyTcpClientDemo</module>
+        <!-- Netty实现tcp服务端 -->
+        <module>NettyTcpServerDemo</module>
+    </modules>
+
+</project>

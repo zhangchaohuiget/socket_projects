@@ -1,0 +1,10 @@
+server:
+  port: 15667
+
+spring:
+  profiles:
+    active: dev
+
+tcpServer:
+  enabled: true
+  port: 11111

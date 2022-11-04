@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: MinaServerDemo
+  jmx:
+    default-domain: MinaServerDemo
+  profiles:
+    active: dev #默认配置开发环境
+server:
+  port: 8088
+
+---
+spring:
+  profiles: dev
+  jackson: #时间格式转换
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    db:
+      driver-class-name: oracle.jdbc.OracleDriver
+      jdbc-url:
+      username:
+      password:
+      pool-name: db
+      idle-timeout: 10000 #最大空闲时间，最小值10000ms
+      connection-timeout: 30000
+      max-lifetime: 900000
+      minimum-idle: 20
+      maximum-pool-size: 90
+      validationQuery: SELECT 1
+
+# MyBatis
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.app.dao.mapper
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis-config.xml
+
+# 定时任务开关
+schedule:
+  enabled: true
+
+TCPServer:
+  enabled: true
+  port: 11112
