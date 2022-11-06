@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: MinaUDPServer
+  jmx:
+    default-domain: MinaUDPServer
+  profiles:
+    active: dev #默认配置开发环境
+server:
+  port: 8088
+
+---
+spring:
+  profiles: dev
+
+UDPServer:
+  enabled: true
+  port: 1095
