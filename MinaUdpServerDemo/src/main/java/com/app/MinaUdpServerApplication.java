@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class MinaUdpServerApplication implements CommandLineRunner {
 
     @Autowired
     public ConstantUtil constantUtil;
@@ -29,7 +29,7 @@ public class Application implements CommandLineRunner {
     public SockerHandlerService sockerHandlerService;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MinaUdpServerApplication.class, args);
     }
 
     @Override

@@ -3,11 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>socket_projects</name>
-    <description>socket_projects</description>
-
+    <name>socket-projects</name>
+    <description>socket-projects</description>
     <groupId>com.app</groupId>
-    <artifactId>socket_projects</artifactId>
+    <artifactId>socket-projects</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
@@ -22,6 +21,8 @@
         <module>NettyTcpClientDemo</module>
         <!-- Netty实现tcp服务端 -->
         <module>NettyTcpServerDemo</module>
+        <!-- Netty实现http服务端 -->
+        <module>NettyHttpServerDemo</module>
     </modules>
 
 </project>

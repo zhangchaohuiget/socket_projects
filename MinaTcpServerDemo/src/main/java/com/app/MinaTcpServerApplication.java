@@ -16,13 +16,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.InetSocketAddress;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 
 @Slf4j
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class MinaTcpServerApplication implements CommandLineRunner {
 
     @Autowired
     public ConstantUtil constantUtil;
@@ -31,7 +30,7 @@ public class Application implements CommandLineRunner {
     public SockerHandlerService sockerHandlerService;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MinaTcpServerApplication.class, args);
     }
 
     @Override

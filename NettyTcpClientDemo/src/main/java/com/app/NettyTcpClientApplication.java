@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class NettyTcpClientApplication implements CommandLineRunner {
 
     @Value("${tcpServer.enabled:false}")
     private boolean socketEnable;
@@ -16,7 +16,7 @@ public class Application implements CommandLineRunner {
     private NettyStarter nettyStarter;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(NettyTcpClientApplication.class, args);
     }
 
     @Override

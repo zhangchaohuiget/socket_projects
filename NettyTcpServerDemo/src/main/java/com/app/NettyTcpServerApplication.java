@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PreDestroy;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class NettyTcpServerApplication implements CommandLineRunner {
 
     @Value("${tcpServer.enabled:false}")
     private boolean socketEnabled;
@@ -19,7 +19,7 @@ public class Application implements CommandLineRunner {
     private NettyServer nettyServer;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(NettyTcpServerApplication.class, args);
     }
 
     @Override
