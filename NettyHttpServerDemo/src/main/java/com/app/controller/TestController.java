@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * mvc测试
- *
- * @author ch
- * @date 2023/11/21 10:39
  */
 @Slf4j
 @RestController

@@ -1,11 +1,7 @@
 server:
   port: 15666
 
-spring:
-  profiles:
-    active: dev
-
-tcpServer:
+tcp-server:
   enabled: true # 是否在启动时建立socket连接
   ip: 127.0.0.1
   port: 11111

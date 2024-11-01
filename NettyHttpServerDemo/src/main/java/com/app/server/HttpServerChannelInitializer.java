@@ -16,9 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * http 协议解码器
- *
- * @author zhangch
- * @date 2023/11/20 22:48
  */
 @Component
 public class HttpServerChannelInitializer extends ChannelInitializer<SocketChannel> {

@@ -11,7 +11,6 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,25 +20,14 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class NettyServer {
 
-    @Value("${tcpServer.port}")
+    @Value("${tcp-server.port}")
     private int serverPort;
-    @Autowired
-    private NettyServerHandler nettyServerHandler;
 
-    private static boolean isStart = false;
-
-    EventLoopGroup bossGroup = new NioEventLoopGroup(5);
-    EventLoopGroup workerGroup = new NioEventLoopGroup(20);
+    private final EventLoopGroup bossGroup = new NioEventLoopGroup(5);
+    private final EventLoopGroup workerGroup = new NioEventLoopGroup(20);
 
     public boolean serverStart() {
         try {
-            if (isStart) {
-                return true;
-            }
-
-            bossGroup = new NioEventLoopGroup(5);
-            workerGroup = new NioEventLoopGroup(20);
-
             ServerBootstrap bootstrap = new ServerBootstrap();
             // 绑定线程池
             bootstrap.group(bossGroup, workerGroup);
@@ -53,19 +41,17 @@ public class NettyServer {
                 @Override
                 protected void initChannel(SocketChannel channel) throws Exception {
                     ChannelPipeline pipeline = channel.pipeline();
-                    pipeline.addLast(new IdleStateHandler(40, 0, 0, TimeUnit.MINUTES));
-                    pipeline.addLast(new HeatBeatHandler());
+                    pipeline.addLast(new IdleStateHandler(30, 30, 30, TimeUnit.SECONDS));
                     pipeline.addLast(new LineBasedFrameDecoder(1024));
                     pipeline.addLast(new StringDecoder());
                     pipeline.addLast(new StringEncoder());
-                    pipeline.addLast(nettyServerHandler);
+                    pipeline.addLast(new TcpServerChannelHandler());
                 }
             };
             bootstrap.childHandler(channelChannelInitializer);
             ChannelFuture channelFuture = bootstrap.bind(serverPort).sync();
             log.info("Netty Tcp Server start success on port：{}", serverPort);
 //            channelFuture.channel().closeFuture().sync(); // 此处关闭在另一个独立方法，无需阻塞
-            isStart = true;
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,9 +61,6 @@ public class NettyServer {
 
     public synchronized boolean serverStop() {
         try {
-            if (!isStart) {
-                return true;
-            }
             Future<?> future = this.workerGroup.shutdownGracefully().await();
             if (!future.isSuccess()) {
                 log.error("<---- netty workerGroup cannot be stopped", future.cause());
@@ -89,7 +72,6 @@ public class NettyServer {
                 return false;
             }
             log.info("关闭Netty Tcp 服务端成功");
-            isStart = false;
             return true;
         } catch (Exception e) {
             e.printStackTrace();

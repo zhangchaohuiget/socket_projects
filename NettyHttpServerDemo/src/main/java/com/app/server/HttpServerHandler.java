@@ -25,9 +25,6 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
  * http 请求处理器
- *
- * @author zhangch
- * @date 2023/11/20 22:49
  */
 @Slf4j
 @Sharable
@@ -67,7 +64,10 @@ public class HttpServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    private void sendHttpResponse(ChannelHandlerContext ctx, String rel) {
+    /**
+     * 发送响应消息
+     */
+    public static void sendHttpResponse(ChannelHandlerContext ctx, String rel) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(rel.getBytes(CharsetUtil.UTF_8)));
         response.headers().set(CONTENT_TYPE, "application/json; charset=utf-8");
         response.headers().set(CONTENT_LENGTH, response.content().readableBytes());

@@ -3,11 +3,9 @@ package com.app.netty;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.ScheduledFuture;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -15,11 +13,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @ChannelHandler.Sharable
 @Component
-public class ClientHandler extends ChannelInboundHandlerAdapter {
-    @Autowired
-    private NettyStarter nettyStarter;
+public class TcpClientChannelHandler extends ChannelInboundHandlerAdapter {
 
-    private Channel channel;
+    private final NettyStarter nettyStarter;
+
+    public TcpClientChannelHandler(NettyStarter nettyStarter) {
+        this.nettyStarter = nettyStarter;
+    }
 
     public static final String HEART_BEAT = "heart beat!";
 
@@ -37,12 +37,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.info("与服务端断开连接，即将重连...");
         final EventLoop eventLoop = ctx.channel().eventLoop();
-        eventLoop.schedule(new Runnable() {
-            @Override
-            public void run() {
-                nettyStarter.doConnect();
-            }
-        }, 5L, TimeUnit.SECONDS);
+        eventLoop.schedule(() -> nettyStarter.doConnect(), 5L, TimeUnit.SECONDS);
         super.channelInactive(ctx);
     }
 

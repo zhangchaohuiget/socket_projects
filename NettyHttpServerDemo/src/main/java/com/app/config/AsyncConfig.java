@@ -9,9 +9,6 @@ import java.util.concurrent.Executor;
 
 /**
  * 异步配置
- *
- * @author ch
- * @date 2023/11/21 11:18
  */
 @Configuration
 @EnableAsync(proxyTargetClass = true)

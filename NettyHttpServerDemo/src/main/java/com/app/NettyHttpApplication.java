@@ -9,9 +9,6 @@ import javax.annotation.PostConstruct;
 
 /**
  * 启动类
- *
- * @author zhangch
- * @date 2023/11/20 22:31
  */
 @SpringBootApplication
 public class NettyHttpApplication {

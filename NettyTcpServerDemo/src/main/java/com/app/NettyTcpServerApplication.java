@@ -1,21 +1,20 @@
 package com.app;
 
 import com.app.netty.NettyServer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 
 @SpringBootApplication
 public class NettyTcpServerApplication implements CommandLineRunner {
 
-    @Value("${tcpServer.enabled:false}")
-    private boolean socketEnabled;
+    @Value("${tcp-server.enabled:false}")
+    private boolean enabled;
 
-    @Autowired
+    @Resource
     private NettyServer nettyServer;
 
     public static void main(String[] args) {
@@ -24,13 +23,9 @@ public class NettyTcpServerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (socketEnabled) {
+        if (enabled) {
             nettyServer.serverStart();
         }
     }
 
-    @PreDestroy
-    public void destory() {
-        nettyServer.serverStop();
-    }
 }

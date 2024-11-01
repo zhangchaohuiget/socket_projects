@@ -15,9 +15,6 @@ import javax.annotation.Resource;
 
 /**
  * Netty启动器
- *
- * @author ch
- * @date 2023/11/20 22:46
  */
 @Slf4j
 @Component

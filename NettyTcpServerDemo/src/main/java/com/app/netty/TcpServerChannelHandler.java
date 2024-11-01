@@ -1,17 +1,19 @@
 package com.app.netty;
 
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 @Slf4j
-@Component
 @ChannelHandler.Sharable
-public class NettyServerHandler extends ChannelInboundHandlerAdapter {
+public class TcpServerChannelHandler extends ChannelInboundHandlerAdapter {
 
     private static final ConcurrentHashMap<String, ChannelHandlerContext> CHANNEL_MAP = new ConcurrentHashMap<>();
 
@@ -21,11 +23,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
-     * 本项目实现了一个简单的session管理
+     * session管理
      **/
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
         //获取连接通道唯一标识
         String channelId = ctx.channel().id().asLongText();
         //如果map中不包含此连接，就保存连接
@@ -54,4 +55,14 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (!(evt instanceof IdleStateEvent)) {
+            super.userEventTriggered(ctx, evt);
+            return;
+        }
+        if (((IdleStateEvent) evt).state() == IdleState.READER_IDLE) {
+            ctx.disconnect();
+        }
+    }
 }
