@@ -1,10 +1,12 @@
 package com.app.codec;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.keepalive.KeepAliveMessageFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
+/**
+ * 心跳协议包
+ */
 @Slf4j
 public class MyKeepAliveMessageFactory implements KeepAliveMessageFactory {
 

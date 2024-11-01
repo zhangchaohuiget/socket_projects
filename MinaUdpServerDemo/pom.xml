@@ -13,7 +13,7 @@
     <version>1.0</version>
     <name>MinaUDPServerDemo</name>
     <packaging>jar</packaging>
-    <description>mina udp socket 服务端程序</description>
+    <description>mina udp server</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,10 +22,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

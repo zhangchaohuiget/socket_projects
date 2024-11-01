@@ -1,19 +1,17 @@
 package com.app.codec;
 
+import com.app.service.BusinessService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
-import com.app.service.SockerHandlerService;
-
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-public class DockHandler extends IoHandlerAdapter {
-    private final SockerHandlerService sockerHandlerService;
+public class UdpServerIoHandler extends IoHandlerAdapter {
+    private final BusinessService businessService;
 
-    public DockHandler(SockerHandlerService sockerHandlerService) {
-        this.sockerHandlerService = sockerHandlerService;
+    public UdpServerIoHandler(BusinessService businessService) {
+        this.businessService = businessService;
     }
 
     @Override
@@ -21,8 +19,8 @@ public class DockHandler extends IoHandlerAdapter {
             throws Exception {
         super.messageReceived(session, message);
         String msg = (String) message;
-        log.info("收到消息");
-        sockerHandlerService.dockSocketMessage(msg);
+        log.info("收到消息：" + msg);
+        businessService.msgHandle(msg);
     }
 
     @Override
